@@ -9,7 +9,7 @@ export const FormInput = ({ label, id, ...rest }) => {
         id={id}
         label={label}
         variant="outlined"
-        sx={{ width: "100%", fontSize: 17 }}
+        sx={{ width: "100%", fontSize: 15 }}
         size="small"
         {...rest}
       />
@@ -26,7 +26,7 @@ export const FormTextarea = ({ label, id, ...rest }) => {
         multiline
         rows={4}
         variant="outlined"
-        sx={{ width: "100%", fontSize: 17 }}
+        sx={{ width: "100%", fontSize: 15 }}
         size="small"
         {...rest}
       />

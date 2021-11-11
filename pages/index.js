@@ -11,8 +11,11 @@ import {
 import PostCard from "@components/PostCard";
 import EventCard from "@components/EventCard";
 import EventCalendar from "@components/EventCalendar";
+import { getAllPostsForEvents, getAllPostsForHome } from "../lib/api";
 
-export default function Home() {
+export default function Home({ allPosts, allEvents }) {
+  const featuredPost = allPosts[0];
+
   return (
     <Box>
       <Container maxW="8xl" mt={20}>
@@ -28,7 +31,7 @@ export default function Home() {
             w="100%"
             h="100%"
             fit="cover"
-            src="https://images.pexels.com/photos/9567693/pexels-photo-9567693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            src={featuredPost?.coverImage}
             alt="blog"
             rounded="xl"
           />
@@ -42,23 +45,17 @@ export default function Home() {
           >
             <Text fontWeight={600}>Featured Post</Text>
             <Heading as="h2" fontSize={{ base: "3xl", md: "6xl" }}>
-              Lorem ipsum dolor sit amet.
+              {featuredPost?.title}
             </Heading>
-            <Text fontSize={{ md: "lg" }}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Quisquam, vero.
-            </Text>
+            <Text fontSize={{ md: "lg" }}>{featuredPost?.excerpt}</Text>
           </Box>
         </Flex>
 
         <Grid templateColumns={{ md: "70% 27%" }} gap={10} my={12}>
           <Grid templateColumns={{ md: "repeat(3, 1fr)" }} gap={6}>
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            {allPosts.map((post) => (
+              <PostCard key={post?._id} post={post} />
+            ))}
           </Grid>
           <Box>
             <Text fontSize={{ md: "xl" }} fontWeight="bold">
@@ -66,9 +63,9 @@ export default function Home() {
             </Text>
 
             <Stack spacing="1rem" mt={6}>
-              <EventCard />
-              <EventCard />
-              <EventCard />
+              {allEvents.map((event) => (
+                <EventCard key={event?._id} event={event} />
+              ))}
             </Stack>
 
             <Stack spacing="1rem" mt={10}>
@@ -82,4 +79,12 @@ export default function Home() {
       </Container>
     </Box>
   );
+}
+
+export async function getStaticProps({ preview = false }) {
+  const allPosts = await getAllPostsForHome(preview);
+  const allEvents = await getAllPostsForEvents(preview);
+  return {
+    props: { allPosts, allEvents, preview },
+  };
 }
