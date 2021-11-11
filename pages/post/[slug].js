@@ -75,7 +75,7 @@ const Blog = ({ post, morePosts }) => {
         <Stack mt={20} spacing="2rem">
           <Typography sx={{ fontWeight: 700 }}>Related posts</Typography>
           <Grid templateColumns={{ md: "repeat(3, 1fr)" }} gap={6}>
-            {morePosts.slice(0, 3).map((post) => (
+            {morePosts?.slice(0, 3)?.map((post) => (
               <PostCard key={post?._id} post={post} />
             ))}
           </Grid>
