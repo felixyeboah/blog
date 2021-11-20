@@ -16,7 +16,7 @@ const Navbar = () => {
       <NextLink href="/" passHref>
         <Link _hover={{ textDecor: "none" }}>
           <Heading as="h3" fontSize={{ base: "xl", md: "3xl" }}>
-            Whatever the name is
+            {`WiNE's BLOG`}
           </Heading>
         </Link>
       </NextLink>

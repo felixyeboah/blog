@@ -1,5 +1,34 @@
 import React from "react";
 import { Box, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+
+const MotionFlex = motion(Flex);
+const MotionText = motion(Text);
+const MotionImage = motion(Image);
+const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
+
+export const container = {
+  hidden: { opacity: 0, y: 300 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.5,
+      delayChildren: 0.2,
+      delay: 0.2,
+      ...transition,
+    },
+  },
+};
+
+export const item = {
+  hidden: { opacity: 0, y: 300 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { ...transition },
+  },
+};
 
 const About = () => {
   return (
@@ -9,9 +38,8 @@ const About = () => {
       bg="black"
       color="white"
       w="100vw"
-      // h={{ md: "calc(100vh - 5rem)" }}
     >
-      <Flex
+      <MotionFlex
         align="center"
         justify="center"
         w={{ md: 130 }}
@@ -19,14 +47,18 @@ const About = () => {
         mx="auto"
         direction="column"
         pos="relative"
+        variants={container}
+        initial="hidden"
+        animate="show"
       >
-        <Image
+        <MotionImage
           rounded="lg"
           w="100%"
           h="100%"
           src="https://images.pexels.com/photos/7414038/pexels-photo-7414038.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           alt="about"
           fit="cover"
+          variants={item}
         />
 
         <Box
@@ -41,10 +73,10 @@ const About = () => {
             About
           </Heading>
         </Box>
-      </Flex>
+      </MotionFlex>
 
       <Container maxW="3xl" mt={20}>
-        <Text fontFamily="text" lineHeight="taller">
+        <MotionText variants={item} fontFamily="text" lineHeight="taller">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
           amet, aperiam doloremque, esse hic, impedit iure molestiae natus neque
           nihil officia quos! Corporis debitis, dolorum ipsa ipsam itaque
@@ -70,7 +102,7 @@ const About = () => {
           exercitationem explicabo ipsum labore molestiae, mollitia, nihil nisi
           nobis non optio pariatur possimus praesentium quisquam recusandae
           saepe voluptatem.
-        </Text>
+        </MotionText>
       </Container>
     </Box>
   );
